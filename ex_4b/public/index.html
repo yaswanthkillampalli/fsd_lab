@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Manager SPA</title>
+    <style>
+        body { font-family: sans-serif; container-type: inline-size; }
+        .container { max-width: 600px; margin: 2rem auto; }
+        form { margin-bottom: 1rem; }
+        input { margin-right: 0.5rem; }
+        ul { list-style: none; padding: 0; }
+        li { display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid #ccc; }
+        button.delete-btn { background: #ff4d4d; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Manager</h1>
+        
+        <form id="addProductForm">
+            <input type="text" id="productName" placeholder="Product Name" required>
+            <input type="number" id="productPrice" placeholder="Price" step="0.01" required>
+            <button type="submit">Add Product</button>
+        </form>
+
+        <h2>Products List</h2>
+        <ul id="productList"></ul>
+    </div>
+
+    <script>
+        const productList = document.getElementById('productList');
+        const addProductForm = document.getElementById('addProductForm');
+
+        // Function to fetch and display products
+        const fetchProducts = async () => {
+            const response = await fetch('/api/products');
+            const products = await response.json();
+            
+            productList.innerHTML = ''; // Clear current list
+            products.forEach(product => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${product.name} - $${product.price}</span>
+                    <button class="delete-btn" data-id="${product._id}">Delete</button>
+                `;
+                productList.appendChild(li);
+            });
+        };
+
+        // Event: Add a new product
+        addProductForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('productName').value;
+            const price = document.getElementById('productPrice').value;
+
+            await fetch('/api/products', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, price })
+            });
+
+            addProductForm.reset();
+            fetchProducts(); // Refresh the list
+        });
+
+        // Event: Delete a product (using event delegation)
+        productList.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('delete-btn')) {
+                const id = e.target.dataset.id;
+                await fetch(`/api/products/${id}`, { method: 'DELETE' });
+                fetchProducts(); // Refresh the list
+            }
+        });
+
+        // Initial load
+        fetchProducts();
+    </script>
+</body>
+</html>

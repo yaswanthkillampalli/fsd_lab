@@ -1,0 +1,30 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #ffffff;
+}
+
+.component-box {
+  border: 1px solid #007bff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  width: 300px;
+  background-color: #f0f8ff;
+}
+input {
+  padding: 8px;
+  font-size: 16px;
+  width: 80%;
+  margin-top: 10px;
+}
+.display-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #d63384;
+  margin-top: 10px;
+  min-height: 30px;
+}

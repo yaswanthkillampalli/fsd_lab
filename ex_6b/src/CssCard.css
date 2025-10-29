@@ -1,0 +1,17 @@
+.card-css {
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px;
+  width: 250px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.card-css h3 {
+  color: #007bff; /* A nice blue color */
+}
+
+.card-css p {
+  font-size: 14px;
+}

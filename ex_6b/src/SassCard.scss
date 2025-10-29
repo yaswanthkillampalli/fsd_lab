@@ -1,0 +1,28 @@
+/* Sass allows you to use variables */
+$primary-color: #9b59b6; /* A nice purple color */
+$border-color: #e8daef;
+
+/* Sass also allows nesting styles */
+.card-sass {
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px;
+  width: 250px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+
+  h3 {
+    color: $primary-color;
+  }
+
+  p {
+    font-size: 14px;
+  }
+  
+  /* The '&' refers to the parent selector (.card-sass) */
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
